@@ -64,13 +64,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-zeppelin-
       - name: who
-        run: whoami
+        run: |
+            whoami
             echo $USER
             echo $HOME
       - name: install environment
         run: ./mvnw install -DskipTests -am -pl ${INTERPRETERS} ${MAVEN_ARGS}
       - name: Setup conda environment with python 3.9 and R
         uses: conda-incubator/setup-miniconda@v3
+        env:
+          XDG_CONFIG_HOME: $HOME/.config
+          CONDARC: $HOME/.condarc
         with:
           activate-environment: python_3_with_R_and_tensorflow
           environment-file: testing/env_python_3_with_R_and_tensorflow.yml
