@@ -84,6 +84,8 @@ jobs:
           channel-priority: strict
           auto-activate-base: false
           use-mamba: true
+      - name: Install IRkernel
+        run: conda install -y -c conda-forge r-irkernel
       - name: Make IRkernel available to Jupyter
         run: |
           R -e "IRkernel::installspec()"
