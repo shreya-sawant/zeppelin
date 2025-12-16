@@ -63,11 +63,6 @@ jobs:
           key: ${{ runner.os }}-zeppelin-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-zeppelin-
-      - name: who
-        run: |
-            whoami
-            echo $USER
-            echo $HOME
       - name: install environment
         run: ./mvnw install -DskipTests -am -pl ${INTERPRETERS} ${MAVEN_ARGS}
       - name: Setup conda environment with python 3.9 and R
