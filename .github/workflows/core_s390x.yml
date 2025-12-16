@@ -87,6 +87,6 @@ jobs:
           channels: conda-forge,defaults
           channel-priority: strict
           auto-activate-base: false
-          use-mamba: true
+          use-mamba: false
       - name: verify interpreter
         run: ./mvnw verify -am -pl ${INTERPRETERS} ${MAVEN_ARGS}
