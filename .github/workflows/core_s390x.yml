@@ -73,9 +73,13 @@ jobs:
       - name: Setup conda environment with python 3.9 and R
         uses: conda-incubator/setup-miniconda@v3
         env:
+          XDG_CONFIG_HOME: $HOME/.config
+          XDG_DATA_HOME: $HOME/.local/share
+          XDG_CACHE_HOME: /home/test/.cache
           CONDARC: $HOME/.config/conda/.condarc
           CONDA_PKGS_DIRS: $HOME/.conda/pkgs
           CONDA_ENVS_DIRS: $HOME/.conda/envs
+          CONDA_NO_PLUGINS: "true"
         with:
           activate-environment: python_3_with_R_and_tensorflow
           environment-file: testing/env_python_3_with_R_and_tensorflow.yml
