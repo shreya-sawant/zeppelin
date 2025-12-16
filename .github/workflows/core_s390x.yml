@@ -63,23 +63,14 @@ jobs:
           key: ${{ runner.os }}-zeppelin-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-zeppelin-
+      - name: who
+        run: whoami
+            echo $USER
+            echo $HOME
       - name: install environment
         run: ./mvnw install -DskipTests -am -pl ${INTERPRETERS} ${MAVEN_ARGS}
-      - name: Prepare conda config directories
-        run: |
-           mkdir -p "$HOME/.config/conda"
-           touch "$HOME/.config/conda/.condarc"
-           mkdir -p "$HOME/.conda/pkgs" "$HOME/.conda/envs"  
       - name: Setup conda environment with python 3.9 and R
         uses: conda-incubator/setup-miniconda@v3
-        env:
-          XDG_CONFIG_HOME: $HOME/.config
-          XDG_DATA_HOME: $HOME/.local/share
-          XDG_CACHE_HOME: /home/test/.cache
-          CONDARC: $HOME/.config/conda/.condarc
-          CONDA_PKGS_DIRS: $HOME/.conda/pkgs
-          CONDA_ENVS_DIRS: $HOME/.conda/envs
-          CONDA_NO_PLUGINS: "true"
         with:
           activate-environment: python_3_with_R_and_tensorflow
           environment-file: testing/env_python_3_with_R_and_tensorflow.yml
@@ -87,6 +78,6 @@ jobs:
           channels: conda-forge,defaults
           channel-priority: strict
           auto-activate-base: false
-          use-mamba: false
+          use-mamba: true
       - name: verify interpreter
         run: ./mvnw verify -am -pl ${INTERPRETERS} ${MAVEN_ARGS}
