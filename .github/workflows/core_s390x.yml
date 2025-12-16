@@ -32,6 +32,7 @@ defaults:
 permissions:
   contents: read # to fetch code (actions/checkout)
 
+
 jobs:
   # test interpreter modules except spark, flink, python, rlang, jupyter
   interpreter-test-non-core:
